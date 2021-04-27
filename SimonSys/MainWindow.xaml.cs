@@ -146,14 +146,14 @@ namespace SimonSys
         }
         private void _check()
         {
-            if (mass2.SequenceEqual(mass) && currentplaymass == 8)
+            if (mass2.SequenceEqual(mass))
             {
                 StartWaitLabel.Content = "YouWin";
                 currentScore = Convert.ToInt32(CurrentScore.Text);
                 currentScore++;
                 CurrentScore.Text = currentScore.ToString();
             }
-            if (mass2.SequenceEqual(mass) != true || currentplaymass == 8)
+            if (mass2.SequenceEqual(mass) != true)
             {
                 StartWaitLabel.Content = "";
                 StartWaitLabel.Foreground = Brushes.Red;
@@ -162,7 +162,8 @@ namespace SimonSys
                 currentplaymass = 0;
             }
                 MassBlock.Text += " ";
-                for (int j = currentplaymass; j < currentround; j++)
+                
+                for (int j = currentplaymass; j <= currentround; j++)
                 {
                     MassBlock.Text += mass2[j].ToString();
                 }
@@ -175,26 +176,22 @@ namespace SimonSys
         }
         private void _clearAll()
         {
-            Button1Exc.Background = Brushes.LightGray;
-            Button2Exc.Background = Brushes.LightGray;
-            Button3Exc.Background = Brushes.LightGray;
-            Button4Exc.Background = Brushes.LightGray;
-            Button5Exc.Background = Brushes.LightGray;
-            Button6Exc.Background = Brushes.LightGray;
-            Button7Exc.Background = Brushes.LightGray;
-            Button8Exc.Background = Brushes.LightGray;
-            Button9Exc.Background = Brushes.LightGray;
+            Button1Exc.Background = Brushes.DarkBlue;
+            Button2Exc.Background = Brushes.DarkBlue;
+            Button3Exc.Background = Brushes.DarkBlue;
+            Button4Exc.Background = Brushes.DarkBlue;
+            Button5Exc.Background = Brushes.DarkBlue;
+            Button6Exc.Background = Brushes.DarkBlue;
+            Button7Exc.Background = Brushes.DarkBlue;
+            Button8Exc.Background = Brushes.DarkBlue;
+            Button9Exc.Background = Brushes.DarkBlue;
         }
         private  async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentplaymass == 8)
-            {
-                currentround = 0;
-                
-            }
+            
             currentround++;
             currentplaymass = 0;
-
+            CurrentRound.Text = currentround.ToString();
             maxmass++;
             _check();
             StartWaitLabel.Foreground = Brushes.Red;
@@ -269,7 +266,7 @@ namespace SimonSys
 
             }
             _clearAll();
-           for(int j = currentplaymass; j < currentround; j++)
+           foreach (int j in mass)
             {
                 MassBlock.Text += mass[j].ToString();
             }
@@ -282,6 +279,13 @@ namespace SimonSys
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
             _check();
+        }
+
+        private void RestartButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentround = 0;
+            currentplaymass = 0;
+            maxmass = 0;
         }
     }
 }
